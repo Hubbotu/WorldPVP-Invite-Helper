@@ -1,4 +1,4 @@
 # WorldPVP-Invite-Helper
-Chat
+Chat:
 Общий - Rus.
 General - Eng.
