@@ -3,7 +3,8 @@ WorldPVP_InviteHelper = LibStub("AceAddon-3.0"):NewAddon("WorldPVP_InviteHelper"
 local AceGUI = LibStub("AceGUI-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
-local groupTable = {}     --三喵：保存队伍：定义
+-- 三喵：保存队伍：定义 
+-- local groupTable = {}  -- 已弃用，使用 self.db.char.groupTable 替代 - 通过AceDB持久化存储
 
 ----------------------------------------------------------------------------------------------
 
@@ -55,61 +56,10 @@ local locale = {
         reInviteGroup = "恢复\n队伍",
         inviteHelperTooltip = "开/关组队助手主界面",
         ffaConfirmTitle = "确认启用自由拾取",
-        ffaConfirmText = "确定要启用自由拾取吗？\n\n这会将团队的拾取方式设置为自由拾取，任何队员都可以拾取战利品。",
+        ffaConfirmText = "确定要启用自由拾取吗？",
         ffaConfirmButton = "确定",
         ffaCancelButton = "取消",
-        ffaLeaderConfirmText = "你刚成为团队队长，且启用了自由拾取功能。\n\n是否要将团队拾取方式设置为自由拾取？",
-    },
-    ruRU = {
-    addonName = "WorldPVP InviteHelper",
-    autoAdviseHeader = "|cffffa012Авто-объявление|r",
-    autoInviteHeader = "|cffffa012Авто-приглашение|r",
-    groupFunctionHeader = "|cffffa012Функции группы|r",
-    reInviteHeader = "|cffffa012Переприглашение группы|r|cffffffff丨Восстановление после смены слоя|r",
-    autoAdvise_enable = "Включить авто-объявление",
-    autoAdvise_world = "Мир (ошибка канала)",
-    autoAdvise_guild = "Гильдия",
-    autoAdvise_text = "Текст авто-объявления",
-    autoNotify_enable = "Включить авто-уведомление группы",
-    autoNotify_text = "Текст уведомления (избегайте запрещённых слов)",
-    autoInvite_enable = "Включить авто-приглашение",
-    autoInvite_whisper = "Личные сообщения",
-    autoInvite_bnetfriend = "Друзья Battle.net",
-    autoInvite_world = "Мир",
-    autoInvite_guild = "Гильдия",
-    autoInvite_text = "Ключевые слова для приглашения (через запятую или пробел)",
-    autoInvite_convertRaid = "Автоматически переводить в рейд",
-    autoInvite_assignA = "Автоматически назначать помощников",
-    autoInvite_freeforall = "Свободный лут (Free for All)",
-    autoInvite_lowlevelNotify = "Уведомление о низкоуровневых участниках",
-    raidFrameSwitchButton = "Рейд\nФрейм",
-    convertButton = "Перевод\nв рейд",
-    promoteAllButton = "Все в\nпомощники",
-    demoteAllButton = "Снять всех\nпомощников",
-    promoteAllIncomplete = "Встроенная функция «Назначить всех помощниками» работает некорректно",
-    demoteAllIncomplete = "Встроенная функция «Снять всех помощников» работает некорректно",
-    readyCheckButton = "Готовность\nПроверка",
-    saveButton = "Сохранить\nгруппу",
-    disbandButton = "Распустить\nгруппу",
-    reInviteButton = "Перепригласить\nгруппу",
-    invitehelperUISwitchButton = "Invite\nHelper",
-    lowLevelWarning = "Внимание! Обнаружен низкоуровневый участник: %s, Команда %d, Уровень: %d",
-    autoNotifyWarning = "WorldPVPInviteHelper: Включено «Авто-уведомление», но вы не в группе или рейде — отправка невозможна!",
-    convertToParty = "Перевод\nв группу",
-    convertToParty1 = "В\nгруппу",
-    groupListSaved = "Список участников очищен и сохранён заново",
-    convertToRaid = "В\nрейд",
-    promoteAllToAssistant = "Все в\nпомощники",
-    demoteAllAssistants = "Снять\nвсех",
-    saveGroup = "Сохр.\nгруппу",
-    disbandGroup = "Расп.\nгруппу",
-    reInviteGroup = "Перепригл.\nгруппу",
-    inviteHelperTooltip = "Открыть/скрыть интерфейс Invite Helper",
-    ffaConfirmTitle = "Подтверждение включения свободного лута",
-    ffaConfirmText = "Вы уверены, что хотите включить свободный лут (Free for All)?\n\nЭто установит метод лута группы на «Каждый за себя», позволяя любому участнику подбирать предметы.",
-    ffaConfirmButton = "Подтвердить",
-    ffaCancelButton = "Отмена",
-    ffaLeaderConfirmText = "Вы только что стали лидером рейда, и у вас включён режим свободного лута.\n\nУстановить метод лута рейда на «Свободный лут»?",
+        ffaLeaderConfirmText = "你刚成为团队队长。\n是否要将团队拾取方式设置为自由拾取？",
     },
     enUS = {
         addonName = "WorldPVP InviteHelper.",
@@ -157,10 +107,61 @@ local locale = {
         reInviteGroup = "ReInv\nGrp",
         inviteHelperTooltip = "Toggle Invite Helper UI",
         ffaConfirmTitle = "Confirm Enable Free for All",
-        ffaConfirmText = "Are you sure you want to enable Free for All loot?\n\nThis will set the group's loot method to Free for All, allowing any member to loot items.",
+        ffaConfirmText = "Enable Free for All loot?",
         ffaConfirmButton = "Confirm",
         ffaCancelButton = "Cancel",
-        ffaLeaderConfirmText = "You have just become the raid leader and have Free for All loot enabled.\n\nDo you want to set the raid's loot method to Free for All?",
+        ffaLeaderConfirmText = "You have just become the raid leader.\nDo you want to set the raid's loot method to Free for All?",
+    },
+    ruRU = {
+        addonName = "WorldPVP InviteHelper",
+        autoAdviseHeader = "|cffffa012Авто-объявление|r",
+        autoInviteHeader = "|cffffa012Авто-приглашение|r",
+        groupFunctionHeader = "|cffffa012Функции группы|r",
+        reInviteHeader = "|cffffa012Переприглашение группы|r|cffffffff丨Восстановление после смены слоя|r",
+        autoAdvise_enable = "Включить авто-объявление",
+        autoAdvise_world = "Мир (ошибка канала)",
+        autoAdvise_guild = "Гильдия",
+        autoAdvise_text = "Текст авто-объявления",
+        autoNotify_enable = "Включить авто-уведомление группы",
+        autoNotify_text = "Текст уведомления (избегайте запрещённых слов)",
+        autoInvite_enable = "Включить авто-приглашение",
+        autoInvite_whisper = "Личные сообщения",
+        autoInvite_bnetfriend = "Друзья Battle.net",
+        autoInvite_world = "Мир",
+        autoInvite_guild = "Гильдия",
+        autoInvite_text = "Ключевые слова для приглашения (через запятую или пробел)",
+        autoInvite_convertRaid = "Автоматически переводить в рейд",
+        autoInvite_assignA = "Автоматически назначать помощников",
+        autoInvite_freeforall = "Свободный лут (Free for All)",
+        autoInvite_lowlevelNotify = "Уведомление о низкоуровневых участниках",
+        raidFrameSwitchButton = "Рейд\nФрейм",
+        convertButton = "Перевод\nв рейд",
+        promoteAllButton = "Все в\nпом.",
+        demoteAllButton = "Снять всех\nпом.",
+        promoteAllIncomplete = "Встроенная функция «Назначить всех помощниками» работает некорректно",
+        demoteAllIncomplete = "Встроенная функция «Снять всех помощников» работает некорректно",
+        readyCheckButton = "Готовность\nПроверка",
+        saveButton = "Сохранить\nгруппу",
+        disbandButton = "Расп.\nгруппу",
+        reInviteButton = "Переп.\nгруппу",
+        invitehelperUISwitchButton = "Invite\nHelper",
+        lowLevelWarning = "Внимание! Обнаружен низкоуровневый участник: %s, Команда %d, Уровень: %d",
+        autoNotifyWarning = "WorldPVPInviteHelper: Включено «Авто-уведомление», но вы не в группе или рейде — отправка невозможна!",
+        convertToParty = "Перевод\nв группу",
+        convertToParty1 = "В\nгруппу",
+        groupListSaved = "Список участников очищен и сохранён заново",
+        convertToRaid = "В\nрейд",
+        promoteAllToAssistant = "Все в\nпом.",
+        demoteAllAssistants = "Снять\nвсех",
+        saveGroup = "Сохр.\nгруп.",
+        disbandGroup = "Расп.\nгруп.",
+        reInviteGroup = "Переп.\nгруп.",
+        inviteHelperTooltip = "Открыть/скрыть интерфейс Invite Helper",
+        ffaConfirmTitle = "Подтверждение включения свободного лута",
+        ffaConfirmText = "Вы уверены, что хотите включить свободный лут (Free for All)?",
+        ffaConfirmButton = "Подтвердить",
+        ffaCancelButton = "Отмена",
+        ffaLeaderConfirmText = "Вы только что стали лидером рейда.\n\nУстановить метод лута рейда на «Свободный лут»?",
     }
 }
 
@@ -172,6 +173,8 @@ local L
 
 if clientLocale == "zhCN" or clientLocale == "zhTW" then
     L = locale.zhCN
+elseif clientLocale == "ruRU" then
+    L = locale.ruRU
 else
     L = locale.enUS
 end
@@ -379,6 +382,8 @@ local defaults = {
         autoNotify_enable = false,
         autoNotify_text = "丫丫123456, 必须上丫丫！",
 
+        groupTable = {},  -- 三喵：持久化存储队伍数据
+
     }
 }
 
@@ -521,6 +526,27 @@ function WorldPVP_InviteHelper:ChatCommand(input)
     if input == "test" then
         self:Print("手动触发自由拾取检查...")
         self:CheckAndApplyFreeForAllLoot()
+    elseif input == "debug" then
+        self.debug = not self.debug
+        self:Print("调试模式: " .. (self.debug and "开启" or "关闭"))
+    elseif input == "version" then
+        self:Print("=== 版本信息 ===")
+        self:Print("WOW_PROJECT_ID: " .. (WOW_PROJECT_ID or "nil"))
+        self:Print("BuildInfo: " .. (GetBuildInfo and GetBuildInfo() or "nil"))
+        local buildVersion = select(4, GetBuildInfo()) or 0
+        self:Print("Build Version: " .. buildVersion)
+    elseif input == "testinvite" then
+        local playerName = UnitName("player")
+        if playerName then
+            self:CHAT_MSG_WHISPER("CHAT_MSG_WHISPER", self.db.char.autoInvite_text or "123", playerName)
+        else
+            self:CHAT_MSG_WHISPER("CHAT_MSG_WHISPER", self.db.char.autoInvite_text or "123", "测试玩家")
+        end
+    elseif input == "testbn" then
+        local playerName = UnitName("player")
+        if playerName then
+            self:CHAT_MSG_BN_WHISPER("CHAT_MSG_BN_WHISPER", self.db.char.autoInvite_text or "123", playerName, nil, nil, nil, nil, nil, nil, nil, nil, 12345, nil, 123456, false)
+        end
     else
         InviteHelperToggleOptions()
     end
@@ -575,7 +601,26 @@ end
 
 -- 定义一个包装函数来兼容不同版本的 InviteUnit
 local function InviteUnitWrapper(name)
-    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+    -- 泰坦时光服特殊处理
+    local buildVersion = select(4, GetBuildInfo()) or 0
+    local isTitanServer = (buildVersion == 38000)
+    
+    if isTitanServer then
+        -- 泰坦时光服：优先使用 C_PartyInfo.InviteUnit
+        local cleanName = name
+        
+        -- 移除可能的服务器后缀
+        if string.find(cleanName, "-") then
+            cleanName = string.match(cleanName, "^([^-]+)")
+        end
+        
+        -- 移除前后空格
+        cleanName = string.match(cleanName, "^%s*(.-)%s*$") or cleanName
+        
+        -- 泰坦时光服：直接使用正确的API
+        C_PartyInfo.InviteUnit(cleanName)
+        
+    elseif WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
         -- 正式服使用 C_PartyInfo.InviteUnit
         C_PartyInfo.InviteUnit(name)
     else
@@ -588,14 +633,12 @@ end
 
 function WorldPVP_InviteHelper:OnEnable()
 
-    self.debug = false  -- 关闭调试
+    self.debug = false  -- 恢复正常状态
     
     self.db = LibStub("AceDB-3.0"):New("WorldPVP_InviteHelper", defaults, true)
     
     -- 强制将自动广告下的世界频道一项设置为false
     self.db.char.autoAdvise_world = false
-    
-    -- 解除自动广告世界频道限制，用户可以自由选择
     
     -- 用于跟踪自由拾取确认对话框是否已显示
     self.ffaConfirmShown = false
@@ -616,13 +659,6 @@ function WorldPVP_InviteHelper:OnEnable()
     self:RegisterEvent("CHAT_MSG_BN_WHISPER")
     self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:RegisterEvent("UNIT_LEVEL")
-
-    -- 以下代码被注释掉，确保这些选项在重载界面时不会被重置
-    -- self.db.char.autoInvite_enable = false
-    -- self.db.char.autoAdvise_enable = false
-    -- self.db.char.autoNotify_enable = false
-    -- self.db.char.autoReply_enableWhisper = false
-
 
 
 --三喵：创建可被主插件识别的窗口
@@ -792,11 +828,11 @@ function WorldPVP_InviteHelper:OnEnable()
     SaveButton:SetScript(
     "OnMouseDown",
         function()
-            table.wipe(groupTable)
+            table.wipe(self.db.char.groupTable)
             local n = GetNumGroupMembers() or 0
             for j=1,n do
                 local name = GetRaidRosterInfo(j)
-                table.insert(groupTable, name)
+                table.insert(self.db.char.groupTable, name)
             end
             print(L.groupListSaved)
         end
@@ -834,8 +870,8 @@ function WorldPVP_InviteHelper:OnEnable()
     ReInviteButton:SetScript(
     "OnMouseDown",
         function()
-            for i=1,#groupTable do
-            InviteUnitWrapper(groupTable[i])  -- 使用包装函数
+            for i=1,#self.db.char.groupTable do
+            InviteUnitWrapper(self.db.char.groupTable[i])  -- 使用包装函数
             end
         end
     )
@@ -955,11 +991,11 @@ function WorldPVP_InviteHelper:OnEnable()
     SaveButton2:SetScript(
     "OnMouseDown",
         function()
-            table.wipe(groupTable)
+            table.wipe(self.db.char.groupTable)
             local n = GetNumGroupMembers() or 0
             for j=1,n do
                 local name = GetRaidRosterInfo(j)
-                table.insert(groupTable, name)
+                table.insert(self.db.char.groupTable, name)
             end
             print(L.groupListSaved)
         end
@@ -997,8 +1033,8 @@ function WorldPVP_InviteHelper:OnEnable()
     ReInviteButton2:SetScript(
     "OnMouseDown",
         function()
-            for i=1,#groupTable do
-            InviteUnitWrapper(groupTable[i])  -- 使用包装函数
+            for i=1,#self.db.char.groupTable do
+            InviteUnitWrapper(self.db.char.groupTable[i])  -- 使用包装函数
             end
         end
     )
@@ -1232,7 +1268,7 @@ function WorldPVP_InviteHelper:CHAT_MSG_CHANNEL(event, msg, sender, _, _, _, _, 
             local worldChannelKeywords = {
                 "大脚世界频道", "大脚世界頻道", 
                 "世界频道", "世界頻道",
-                "General", "综合", "綜合",
+                "General", "综合", "綜合", "Общий",
                 "Trade", "交易", 
                 "LookingForGroup", "lfg", "寻求组队", "尋求組隊" 
             }
@@ -1278,12 +1314,13 @@ function WorldPVP_InviteHelper:CHAT_MSG_WHISPER(event, msg, sender)
         -- 支持中文逗号、英文逗号和空格作为分隔符
         local cleanedText = string.gsub(self.db.char.autoInvite_text, "[，, ]+", ",")
         local tokenArray = {strsplit(",", cleanedText)}
+        
         if #tokenArray >= 1 then
             for idx, token in pairs(tokenArray) do
                 -- 去除关键词前后空格
                 local cleanToken = string.match(token, "^%s*(.-)%s*$")
+                
                 if cleanToken and string.upper(msg) == string.upper(cleanToken) then
-                    self:Debug("Invite " .. sender)
                     InviteUnitWrapper(sender)
                     break
                 end
@@ -1369,6 +1406,7 @@ function WorldPVP_InviteHelper:CHAT_MSG_BN_WHISPER(event, msg, sender, _, _, _, 
                     -- 执行邀请
                     if inviteTarget and inviteTarget ~= "" then
                         InviteUnitWrapper(inviteTarget)
+                    else
                     end
                     
                     return
@@ -1400,37 +1438,108 @@ end
 function WorldPVP_InviteHelper:CheckLowLevelMembers()
     -- 小号检查 - 在队伍成员变化时检查所有成员
     if self.db.char.autoInvite_lowlevelNotify then
+        -- 检查是否在副本中 - 在副本中不进行低等级号通报
+        local inInstance = false
+        local _, instanceType = IsInInstance()
+        if instanceType and instanceType ~= "none" then
+            inInstance = true
+            self:Debug("在副本中，跳过低等级号检查: " .. (instanceType or "unknown"))
+        end
+        
+        -- 额外检查：检测随机副本系统
+        -- 经典怀旧服的随机副本可能不会通过IsInInstance正确检测
+        local inRandomDungeon = false
+        
+        -- 方法1：检查是否在LFG队伍中
+        if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+            inRandomDungeon = true
+            self:Debug("检测到副本队伍，跳过低等级号检查")
+        end
+        
+        -- 方法2：尝试检测LFG状态（如果API可用）
+        if LFGParentFrame and LFGParentFrame:IsShown() then
+            inRandomDungeon = true
+            self:Debug("检测到LFG界面显示，跳过低等级号检查")
+        end
+        
+        -- 方法3：检查队伍状态是否与常规队伍不同
+        -- 在随机副本中，常规队伍人数可能为0或1
+        local homePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
+        local instancePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_INSTANCE)
+        
+        if instancePartyCount > homePartyCount then
+            inRandomDungeon = true
+            self:Debug(string.format("副本队伍(%d)多于常规队伍(%d)，可能是随机副本", instancePartyCount, homePartyCount))
+        end
+        
+        -- 如果在任意类型副本中，直接返回，不进行低等级号通报
+        if inInstance or inRandomDungeon then
+            return
+        end
+        
         local maxLevel = GetMaxPlayerLevel()
+        
+        -- 安全检查：确保在队伍中才执行
+        local inInstanceGroup = IsInGroup(LE_PARTY_CATEGORY_INSTANCE)
+        local inHomeGroup = IsInGroup(LE_PARTY_CATEGORY_HOME)
         
         -- 检查团队中的成员
         if IsInRaid() then
+            -- 使用安全检查，避免在副本队伍中调用团队API
             local numMembers = GetNumGroupMembers()
-            for i = 1, numMembers do
-                local name, rank, subgroup, level, class, fileName, zone, online, isDead, role, isML = GetRaidRosterInfo(i)
-                if name and online and level < maxLevel then
-                    local msg = string.format(L.lowLevelWarning, name, subgroup or 1, level)
-                    if UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
-                        SendChatMessage(msg, 'RAID_WARNING')
-                    else
-                        SendChatMessage(msg, 'RAID')
+            if numMembers and numMembers > 0 then
+                for i = 1, numMembers do
+                    local name, rank, subgroup, level, class, fileName, zone, online, isDead, role, isML = GetRaidRosterInfo(i)
+                    if name and online and level < maxLevel then
+                        local msg = string.format(L.lowLevelWarning, name, subgroup or 1, level)
+                        -- 安全发送消息，避免在副本队伍中发送到错误频道
+                        if inInstanceGroup then
+                            -- 在副本队伍中，发送到副本频道
+                            local success = pcall(function()
+                                if UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
+                                    SendChatMessage(msg, 'INSTANCE_CHAT_LEADER')
+                                else
+                                    SendChatMessage(msg, 'INSTANCE_CHAT')
+                                end
+                            end)
+                            -- 如果发送失败，不重试
+                        elseif inHomeGroup then
+                            -- 在常规队伍中，发送到团队频道
+                            if UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
+                                SendChatMessage(msg, 'RAID_WARNING')
+                            else
+                                SendChatMessage(msg, 'RAID')
+                            end
+                        end
                     end
                 end
             end
         -- 检查小队中的成员
-        elseif IsInGroup() then
+        elseif inInstanceGroup or inHomeGroup then
             local numMembers = GetNumGroupMembers()
-            for i = 1, numMembers do
-                local unitId = (i == 1) and "player" or "party" .. i
-                local name = UnitName(unitId)
-                local level = UnitLevel(unitId)
-                local online = UnitIsConnected(unitId)
-                
-                if name and online and level < maxLevel then
-                    local msg = string.format(L.lowLevelWarning, name, 1, level)
-                    if UnitIsGroupLeader('player') then
-                        SendChatMessage(msg, 'PARTY')
-                    else
-                        SendChatMessage(msg, 'PARTY')
+            if numMembers and numMembers > 0 then
+                for i = 1, numMembers do
+                    local unitId = (i == 1) and "player" or "party" .. i
+                    local name = UnitName(unitId)
+                    local level = UnitLevel(unitId)
+                    local online = UnitIsConnected(unitId)
+                    
+                    if name and online and level < maxLevel then
+                        local msg = string.format(L.lowLevelWarning, name, 1, level)
+                        -- 安全发送消息
+                        if inInstanceGroup then
+                            -- 在副本队伍中，发送到副本频道
+                            pcall(function()
+                                SendChatMessage(msg, 'INSTANCE_CHAT')
+                            end)
+                        elseif inHomeGroup then
+                            -- 在常规队伍中，发送到小队频道
+                            if UnitIsGroupLeader('player') then
+                                SendChatMessage(msg, 'PARTY')
+                            else
+                                SendChatMessage(msg, 'PARTY')
+                            end
+                        end
                     end
                 end
             end
@@ -1495,6 +1604,45 @@ function WorldPVP_InviteHelper:UNIT_LEVEL(event, unitId)
 
     -- 小号检查
     if self.db.char.autoInvite_lowlevelNotify then
+        -- 检查是否在副本中 - 在副本中不进行低等级号通报
+        local inInstance = false
+        local _, instanceType = IsInInstance()
+        if instanceType and instanceType ~= "none" then
+            inInstance = true
+            self:Debug("在副本中，跳过UNIT_LEVEL低等级号检查: " .. (instanceType or "unknown"))
+        end
+        
+        -- 额外检查：检测随机副本系统
+        -- 经典怀旧服的随机副本可能不会通过IsInInstance正确检测
+        local inRandomDungeon = false
+        
+        -- 方法1：检查是否在LFG队伍中
+        if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+            inRandomDungeon = true
+            self:Debug("UNIT_LEVEL检测到副本队伍，跳过低等级号检查")
+        end
+        
+        -- 方法2：尝试检测LFG状态（如果API可用）
+        if LFGParentFrame and LFGParentFrame:IsShown() then
+            inRandomDungeon = true
+            self:Debug("UNIT_LEVEL检测到LFG界面显示，跳过低等级号检查")
+        end
+        
+        -- 方法3：检查队伍状态是否与常规队伍不同
+        -- 在随机副本中，常规队伍人数可能为0或1
+        local homePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
+        local instancePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_INSTANCE)
+        
+        if instancePartyCount > homePartyCount then
+            inRandomDungeon = true
+            self:Debug(string.format("UNIT_LEVEL检测：副本队伍(%d)多于常规队伍(%d)，可能是随机副本", instancePartyCount, homePartyCount))
+        end
+        
+        -- 如果在任意类型副本中，直接返回，不进行低等级号通报
+        if inInstance or inRandomDungeon then
+            return
+        end
+        
         self:Debug("low level check to ".. unitId)
         if string.sub(unitId, 1, 4) == 'raid' and string.sub(unitId, 1, 7) ~= 'raidpet' then
             local raidIndex = tonumber(string.sub(unitId, 5))
@@ -1505,7 +1653,6 @@ function WorldPVP_InviteHelper:UNIT_LEVEL(event, unitId)
                     if level < GetMaxPlayerLevel() and online then
                         local msg = string.format(L.lowLevelWarning, name, subgroup, level)
                         if UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
-                            SendChatMessage(msg, 'RAID_WARNING')
                             SendChatMessage(msg, 'RAID_WARNING')
                         else
                             SendChatMessage(msg, 'RAID')
@@ -1518,15 +1665,48 @@ function WorldPVP_InviteHelper:UNIT_LEVEL(event, unitId)
 end
 
 function WorldPVP_InviteHelper:AutoRaid()
-    if UnitInParty("player") then
-        local count = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
-        self:Debug("Gourp member count: " .. count)
-        if count > 1 and UnitIsGroupLeader("player", LE_PARTY_CATEGORY_HOME) and self.db.char.autoInvite_convertRaid then
+    -- 检查是否在任意类型的队伍中（常规队伍或副本队伍）
+    local inHomeParty = UnitInParty("player")
+    local inInstanceParty = UnitInParty("player", LE_PARTY_CATEGORY_INSTANCE)
+    
+    -- 使用统一的队伍类别检查
+    if inHomeParty or inInstanceParty then
+        -- 优先检查常规队伍，如果没有则检查副本队伍
+        local count = 0
+        local isLeader = false
+        
+        if inHomeParty then
+            count = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
+            isLeader = UnitIsGroupLeader("player", LE_PARTY_CATEGORY_HOME)
+        elseif inInstanceParty then
+            count = GetNumGroupMembers(LE_PARTY_CATEGORY_INSTANCE)
+            isLeader = UnitIsGroupLeader("player", LE_PARTY_CATEGORY_INSTANCE)
+        end
+        
+        self:Debug("Group member count: " .. count)
+        
+        -- 检测是否在随机副本中（副本队伍人数多于常规队伍）
+        local homePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
+        local instancePartyCount = GetNumGroupMembers(LE_PARTY_CATEGORY_INSTANCE)
+        local inRandomDungeon = instancePartyCount > homePartyCount
+        
+        if inRandomDungeon then
+            self:Debug(string.format("检测到随机副本，常规队伍：%d人，副本队伍：%d人，跳过自动转团队", homePartyCount, instancePartyCount))
+            return  -- 随机副本中不执行自动转团队
+        end
+        
+        -- 只有在常规队伍中且是队长时才自动转团队（副本队伍和随机副本不应该自动转团队）
+        if count > 1 and inHomeParty and isLeader and self.db.char.autoInvite_convertRaid then
             self:Debug("convert to raid.")
             ConvertToRaidWrapper()
         end
     end
-    if UnitInRaid("player") then
+    
+    -- 检查团队状态（使用统一的检查方式）
+    local inHomeRaid = UnitInRaid("player")
+    local inInstanceRaid = UnitInRaid("player") -- 经典旧世版本可能不支持队伍类别参数
+    
+    if inHomeRaid or inInstanceRaid then
         -- 自由拾取检查 - 只在插件需要主动设置时才执行
         -- 这里不再主动检查，避免在手动切换时触发确认框
     end
